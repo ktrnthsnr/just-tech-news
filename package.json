@@ -2,11 +2,26 @@
   "name": "just-tech-news",
   "version": "1.0.0",
   "description": "A tech news website where users can post, upvote, and comment on links to news articles",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ktrnthsnr/just-tech-news.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ktrnthsnr/just-tech-news/issues"
+  },
+  "homepage": "https://github.com/ktrnthsnr/just-tech-news#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.12"
+  }
 }
