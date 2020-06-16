@@ -115,42 +115,56 @@ router.post('/', (req, res) => {
       });
   });
 
-// ========================== Update VOTING --  PUT /api/posts/upvote
-// Insomnia endpoint PUT  http://localhost:3001/api/posts/upvote
-// test JSON in PUT 
-        // {
-        //     "user_id": 1,
-        //     "post_id": 1
-        //   }
-router.put('/upvote', (req, res) => {
+// -- after refactor with Post class
 
-    Vote.create({
-        user_id: req.body.user_id,
-        post_id: req.body.post_id
-      }).then(() => {
-        // then find the post we just voted on
-        return Post.findOne({
-          where: {
-            id: req.body.post_id
-          },
-          attributes: [
-            'id',
-            'post_url',
-            'title',
-            'created_at',
-            // use raw MySQL aggregate function query to get a count of how many votes the post has and return it under the name `vote_count`
-            [
-              sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'),
-              'vote_count'
-            ]
-          ]
-        })
-        .then(dbPostData => res.json(dbPostData))
-        .catch(err => {
-          console.log(err);
-          res.status(400).json(err);
-        });
-    });
+router.put('/upvote', (req, res) => {
+    // custom static method created in models/Post.js
+    Post.upvote(req.body, { Vote })
+      .then(updatedPostData => res.json(updatedPostData))
+      .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  });
+
+// -- previous  before adding above refactored code
+
+            // // ========================== Update VOTING --  PUT /api/posts/upvote
+            // // Insomnia endpoint PUT  http://localhost:3001/api/posts/upvote
+            // // test JSON in PUT 
+            //         // {
+            //         //     "user_id": 1,
+            //         //     "post_id": 1
+            //         //   }
+            // router.put('/upvote', (req, res) => {
+
+            //     Vote.create({
+            //         user_id: req.body.user_id,
+            //         post_id: req.body.post_id
+            //     }).then(() => {
+            //         // then find the post we just voted on
+            //         return Post.findOne({
+            //         where: {
+            //             id: req.body.post_id
+            //         },
+            //         attributes: [
+            //             'id',
+            //             'post_url',
+            //             'title',
+            //             'created_at',
+            //             // use raw MySQL aggregate function query to get a count of how many votes the post has and return it under the name `vote_count`
+            //             [
+            //             sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'),
+            //             'vote_count'
+            //             ]
+            //         ]
+            //         })
+            //         .then(dbPostData => res.json(dbPostData))
+            //         .catch(err => {
+            //         console.log(err);
+            //         res.status(400).json(err);
+            //         });
+            //     });
 
         // previous
                 // Vote.create({
@@ -159,7 +173,7 @@ router.put('/upvote', (req, res) => {
                 //   })
                 //     .then(dbPostData => res.json(dbPostData))
                 //     .catch(err => res.json(err));
-});
+                // });
 
 
 // ========================== Update a single post
