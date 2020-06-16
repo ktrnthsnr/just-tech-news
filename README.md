@@ -36,6 +36,8 @@ https://github.com/ktrnthsnr/just-tech-news
 - $ `npm install mysql2 --save`
 - Install console.table to print MySQL in console
 - $ `npm install console.table --save`
+- Install bcrypt 
+- `npm install bcrypt`
 
 ## Usage
 - Within the VSCode terminal, start MySQL
