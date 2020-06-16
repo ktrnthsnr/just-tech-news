@@ -45,6 +45,7 @@ https://github.com/ktrnthsnr/just-tech-news
 - Enter your MySQL password when prompted
 - To create the database and run the schema script, enter in the MySQL2 command line,
 - mysql> `source db/schema.sql`
+- To populate the tables to test, see Testing.md
 - Start the server in terminal bash
 - $ `npm start`
 

@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { Post, User } = require('../../models');
+const { Post, User, Vote } = require('../../models');
+const sequelize = require('../../config/connection');   // required for upvote
 
 // ========================== get all posts
 // Insomnia endpoint GET http://localhost:3001/api/posts
@@ -23,33 +24,33 @@ router.get('/', (req, res) => {
   });
 
 
-  // ========================== get a single post by ID
-  // Insomnia endpoint GET http://localhost:3001/api/posts/1
-  router.get('/:id', (req, res) => {
+// ========================== get a single post by ID
+// Insomnia endpoint GET http://localhost:3001/api/posts/1
+router.get('/:id', (req, res) => {
     Post.findOne({
-      where: {
+        where: {
         id: req.params.id
-      },
-      attributes: ['id', 'post_url', 'title', 'created_at'],
-      include: [
+        },
+        attributes: ['id', 'post_url', 'title', 'created_at'],
+        include: [
         {
-          model: User,
-          attributes: ['username']
+            model: User,
+            attributes: ['username']
         }
-      ]
+        ]
     })
-      .then(dbPostData => {
+        .then(dbPostData => {
         if (!dbPostData) {
-          res.status(404).json({ message: 'No post found with this id' });
-          return;
+            res.status(404).json({ message: 'No post found with this id' });
+            return;
         }
         res.json(dbPostData);
-      })
-      .catch(err => {
+        })
+        .catch(err => {
         console.log(err);
         res.status(500).json(err);
-      });
-  });
+        });
+});
 
 // ========================== post a single post
 // Insomnia endpoint POST  http://localhost:3001/api/posts/
@@ -59,7 +60,7 @@ router.get('/', (req, res) => {
         //     "post_url": "https://runbuddy.com/press",
         //     "user_id": 1
         //   }
-    router.post('/', (req, res) => {
+router.post('/', (req, res) => {
     // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
     Post.create({
       title: req.body.title,
@@ -73,34 +74,81 @@ router.get('/', (req, res) => {
       });
   });
 
+// ========================== Update VOTING --  PUT /api/posts/upvote
+// Insomnia endpoint PUT  http://localhost:3001/api/posts/upvote
+// test JSON in PUT 
+        // {
+        //     "user_id": 1,
+        //     "post_id": 1
+        //   }
+router.put('/upvote', (req, res) => {
+
+    Vote.create({
+        user_id: req.body.user_id,
+        post_id: req.body.post_id
+      }).then(() => {
+        // then find the post we just voted on
+        return Post.findOne({
+          where: {
+            id: req.body.post_id
+          },
+          attributes: [
+            'id',
+            'post_url',
+            'title',
+            'created_at',
+            // use raw MySQL aggregate function query to get a count of how many votes the post has and return it under the name `vote_count`
+            [
+              sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'),
+              'vote_count'
+            ]
+          ]
+        })
+        .then(dbPostData => res.json(dbPostData))
+        .catch(err => {
+          console.log(err);
+          res.status(400).json(err);
+        });
+    });
+
+        // previous
+                // Vote.create({
+                //     user_id: req.body.user_id,
+                //     post_id: req.body.post_id
+                //   })
+                //     .then(dbPostData => res.json(dbPostData))
+                //     .catch(err => res.json(err));
+});
+
+
 // ========================== Update a single post
 // Insomnia endpoint PUT  http://localhost:3001/api/posts/2
 // test JSON in PUT 
         // {
         //     "title": "Runbuddy reaches 2 million subscribers"
         // }
-  router.put('/:id', (req, res) => {
-  Post.update(
-    {
-      title: req.body.title
-    },
-    {
-      where: {
-        id: req.params.id
-      }
-    }
-  )
-    .then(dbPostData => {
-      if (!dbPostData) {
-        res.status(404).json({ message: 'No post found with this id' });
-        return;
-      }
-      res.json(dbPostData);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+router.put('/:id', (req, res) => {
+    Post.update(
+        {
+        title: req.body.title
+        },
+        {
+        where: {
+            id: req.params.id
+        }
+        }
+    )
+        .then(dbPostData => {
+        if (!dbPostData) {
+            res.status(404).json({ message: 'No post found with this id' });
+            return;
+        }
+        res.json(dbPostData);
+        })
+        .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+        });
 });
 
 
