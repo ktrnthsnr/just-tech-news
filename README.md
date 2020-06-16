@@ -49,9 +49,11 @@ https://github.com/ktrnthsnr/just-tech-news
 - To populate the tables to test, see Testing.md for more info
 - Start the server in terminal bash, which will create the tables if not already created
 - $ `npm start`
+- Insomnia GET sample
+![Insomnia GET sample](./img/GET all api posts to include comments.jpg "Insomnia GET sample")
 
 ## Technology
-Heroku JawsDB as the MySQL db, MySQL2, Express.js, Sequelize, Node.js, JavaScript, npm, HTML, CSS, dotenv package
+Heroku JawsDB, MySQL, MySQL2, Express.js, Sequelize, Insomnia, Node.js, JavaScript, npm, HTML, CSS, bcrypt, dotenv
 
 ## Contribution
 ktrnthsnr

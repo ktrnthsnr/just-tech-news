@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post, User, Vote } = require('../../models');
+const { Post, User, Vote, Comment } = require("../../models");
 const sequelize = require('../../config/connection');   // required for upvote
 
 // ========================== get all posts
@@ -7,8 +7,8 @@ const sequelize = require('../../config/connection');   // required for upvote
 // when first testing, and till the Insert API is complete, only works after seeding the post table (see seed_notes.sql)
 router.get('/', (req, res) => {
     Post.findAll({
-    //   attributes: ['id', 'post_url', 'title', 'created_at', 'updated_at'],
-      // updated the `.findAll()` method's attributes to look like this
+      // attributes: ['id', 'post_url', 'title', 'created_at', 'updated_at'],
+      // -- updated the `.findAll()` method's attributes 
     attributes: [   
     'id',
     'post_url',
@@ -18,6 +18,16 @@ router.get('/', (req, res) => {
   ],
       order: [['created_at', 'DESC']], 
       include: [
+        // adding the Comment model here
+        {
+          model: Comment,
+          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+          include: {
+            model: User,  // including user name in the comments
+            attributes: ['username']
+          }
+        },
+        // -- user name 
         {
           model: User,
           attributes: ['username']

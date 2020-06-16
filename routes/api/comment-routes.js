@@ -2,10 +2,11 @@ const router = require('express').Router();
 const { Comment } = require('../../models');
 
 
-// ----------------- GET /api/comments
+// ----------------- GET all /api/comments
+// Insomnia GET http://localhost:3001/api/comments
 router.get('/', (req, res) => {
         Comment.findAll({
-    
+            attributes: { exclude: ['password'] }
         })
           .then(dbCommentData => res.json(dbCommentData))
           .catch(err => {
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
 
 
 // ----------------- Insert to POST /api/comments
-// sample Insomnia insert
+// sample Insomnia insert POST http://localhost:3001/api/comments
         // {
         //     "comment_text": "Testing comments kt June 2020",
         //     "user_id": 1,
@@ -38,6 +39,7 @@ router.post('/', (req, res) => {
 });
 
 // ----------------- DELETE /api/comments
+// sample Insomnia DELETE http://localhost:3001/api/comments/2
 router.delete('/:id', (req, res) => {
     Comment.destroy({
         where: {
