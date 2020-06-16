@@ -2,6 +2,7 @@
 const User = require('./User');
 const Post = require("./Post");
 const Vote = require('./Vote');
+const Comment = require('./Comment');
 
 
 // -- Foreign Key associations more info: https://sequelize.org/v3/docs/associations/
@@ -16,7 +17,7 @@ Post.belongsTo(User, {
 foreignKey: 'user_id',
 });
 
-// added after Vote model\routes added
+// added after Vote model added
 User.belongsToMany(Post, {
     through: Vote,
     as: 'voted_posts',
@@ -45,6 +46,22 @@ User.belongsToMany(Post, {
     foreignKey: 'post_id'
   });
 
+  // added after Comment model added
+  Comment.belongsTo(User, {
+    foreignKey: 'user_id'
+  });
+  
+  Comment.belongsTo(Post, {
+    foreignKey: 'post_id'
+  });
+  
+  User.hasMany(Comment, {
+    foreignKey: 'user_id'
+  });
+  
+  Post.hasMany(Comment, {
+    foreignKey: 'post_id'
+  });
 
   // export
-module.exports = { User, Post, Vote };
+  module.exports = { User, Post, Vote, Comment };
