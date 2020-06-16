@@ -45,8 +45,9 @@ https://github.com/ktrnthsnr/just-tech-news
 - Enter your MySQL password when prompted
 - To create the database and run the schema script, enter in the MySQL2 command line,
 - mysql> `source db/schema.sql`
-- To populate the tables to test, see Testing.md
-- Start the server in terminal bash
+- Validate the db was created, `show databases;` or by entering `use just_tech_news_db;`
+- To populate the tables to test, see Testing.md for more info
+- Start the server in terminal bash, which will create the tables if not already created
 - $ `npm start`
 
 ## Technology
