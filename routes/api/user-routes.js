@@ -1,6 +1,6 @@
 // Express.js router
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Post, Vote} = require('../../models');
 
 // ========================== GET /api/users
 // test route in browser:  http://localhost:3001/api/users
@@ -27,7 +27,19 @@ router.get('/:id', (req, res) => {
     User.findOne({
       where: {
         id: req.params.id
-      }
+      },
+      include: [
+        {
+          model: Post,
+          attributes: ['id', 'title', 'post_url', 'created_at']
+        },
+        {
+          model: Post,
+          attributes: ['title'],
+          through: Vote,
+          as: 'voted_posts'
+        }
+      ]
     })
       .then(dbUserData => {
         if (!dbUserData) {
