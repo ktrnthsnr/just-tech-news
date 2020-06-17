@@ -29,7 +29,7 @@ https://github.com/ktrnthsnr/just-tech-news
 - $ `npm install express sequelize mysql2`
 - Install NPM package dotenv to manage sensitive data, info https://www.npmjs.com/package/dotenv
 - $ `npm install dotenv`
-- To install the database for this project, you'll need a Heroku account and the JawsDB add-on.
+- To install the database for this project, you'll need a Heroku account with the JawsDB add-on. When uploaded to Heroku, add the process.env variables within the Heroku dashboard. For local testing, you can create an .env file to store your credentials. More info in the Testing.md
 - For more info, https://elements.heroku.com/addons/jawsdb
 - To install mysql manually (if not already installed per above)
 - $ `npm install -g mysql`
@@ -50,7 +50,12 @@ https://github.com/ktrnthsnr/just-tech-news
 - Start the server in terminal bash, which will create the tables if not already created
 - $ `npm start`
 - Insomnia GET sample
-![Insomnia GET sample](./img/GET all api posts to include comments.jpg "Insomnia GET sample")
+![Insomnia GET sample](./img/getSamp.jpg "Insomnia GET sample")
+- Walkthrough of the GET, POST, PULL, DELETE API routes through Insomnia
+https://drive.google.com/file/d/1KR7l8L7FI46ifa94_QorOl94-ma2Q5Ut/view
+- Heroku URL
+- https://ktrnthsn-just-tech-news.herokuapp.com/
+
 
 ## Technology
 Heroku JawsDB, MySQL, MySQL2, Express.js, Sequelize, Insomnia, Node.js, JavaScript, npm, HTML, CSS, bcrypt, dotenv
