@@ -49,12 +49,17 @@ https://github.com/ktrnthsnr/just-tech-news
 - To populate the tables to test, see Testing.md for more info
 - Start the server in terminal bash, which will create the tables if not already created
 - $ `npm start`
+
 - Insomnia GET sample
 ![Insomnia GET sample](./img/getSamp.jpg "Insomnia GET sample")
-- Walkthrough of the GET, POST, PULL, DELETE API routes through Insomnia
+- Local site walkthrough of the GET, POST, PULL, DELETE API routes through Insomnia
 https://drive.google.com/file/d/1KR7l8L7FI46ifa94_QorOl94-ma2Q5Ut/view
-- Heroku URL
-- https://ktrnthsn-just-tech-news.herokuapp.com/
+
+- Heroku sample GET URL for single user https://ktrnthsn-just-tech-news.herokuapp.com/api/users/1
+![Heroku GET](./img/heroku-justnews.jpg "Heroku GET")
+
+- Heroku sample URLs, walkthrough within Insomnia for GET, POST, PULL, DELETE API endpoints
+https://drive.google.com/file/d/1nr9taJsIYR6BMeG7Mw6yNCKMdY5inUOP/view
 
 
 ## Technology
