@@ -12,8 +12,8 @@ https://github.com/ktrnthsnr/just-tech-news
 * [Contribution](#contribution)
 
 ## Description
-- This repo contains the Just Tech News blog application, within a Node.js JavaScript platform. For this exercise the work involved focused entirely on the backend setup of an e-commerce website and the connective pieces to communicate with the frontend API. 
-- To start, given a built Express.js API, the work for this project contains JavaScript configuration, MySQL2 commands, and Sequelize model scripts that query the backend database tables.
+- This repo contains the Just Tech News blog application, within a Node.js JavaScript platform. 
+- The work for this project contains JavaScript configuration, MySQL2 commands, and Sequelize model scripts that query the backend database tables.
 - Sequelize is a JavaScript library and a Promise based Node.js object relational mapping (ORM) package that acts as a dialect to various SQL server software like MySQL. The Sequalize ORM is used to interact between the Expres.js web server and the MySQL database. The Sequelize model script provides the query language to view, add, update or delete content from the database. Finally, the Express.js API route scripts will call the database using the Sequelize models or database queries. 
 - For this application, the Sequelize ORM interacts with the Heroku JawsDB add-on which provides the MySQL database and holds the tables' content. The API endpoints for each query type can be viewed and tested via the debugging tool Insomnia, which can render GET, POST, PULL, and DELETE routes through its browser.
 
